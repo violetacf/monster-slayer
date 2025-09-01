@@ -3,6 +3,8 @@
 Monster Slayer is a simple turn-based game built with **Vue 3** using **Vite**.  
 The player fights a monster by attacking, using special attacks, healing, or surrendering. The game keeps a battle log and shows health bars for both player and monster.
 
+👉 **Play it live here:** [Monster Slayer on Render](https://monster-slayer-1rdt.onrender.com)
+
 ## Features
 
 - Turn-based combat system

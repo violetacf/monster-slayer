@@ -1,6 +1,6 @@
 <template>
     <div ref="characterRef" :class="['character', type]">
-        <span>{{ emoji }}</span>
+        <img :src="characterImg" alt="character" />
     </div>
 </template>
 
@@ -8,13 +8,19 @@
 import { ref, watch, onMounted, computed } from 'vue'
 import { gsap } from 'gsap'
 
+import PokemonGif from '../assets/Pokemon.gif'
+import MonsterGif from '../assets/Monster.gif'
+
 const props = defineProps({
     type: { type: String, default: 'player' }, // 'player' o 'monster'
     action: String, // 'attack', 'heal', etc.
 })
 
 const characterRef = ref(null)
-const emoji = computed(() => (props.type === 'player' ? '🧙‍♂️' : '👹'))
+
+const characterImg = computed(() =>
+    props.type === 'player' ? PokemonGif : MonsterGif
+)
 
 watch(() => props.action, (newAction) => {
     if (!newAction) return
@@ -39,20 +45,17 @@ onMounted(() => {
 
 <style scoped>
 .character {
-    font-size: 4rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     margin: 1rem auto;
 }
 
-.character.player {
-    color: #4caf50;
-}
-
-.character.monster {
-    color: #f44336;
+.character img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
 }
 </style>
