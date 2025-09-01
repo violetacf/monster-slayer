@@ -142,10 +142,26 @@ function surrender() {
 }
 
 function addLogMessage(who, what, value) {
+  let characterName = '';
+  let characterImg = '';
+
+  if (who === 'monster') {
+    characterName = 'Monster';
+    characterImg = MonsterGif;
+  } else {
+    const hero = pokemons.find(p => p.name === chosenCharacter.value);
+    if (hero) {
+      characterName = hero.name;
+      characterImg = hero.img;
+    }
+  }
+
   logMessages.value.unshift({
-    actionBy: who,
+    actionBy: who === 'monster' ? 'monster' : 'pokemon',
     actionType: what,
     actionValue: value,
+    characterName,
+    characterImg
   });
 }
 </script>

@@ -4,7 +4,9 @@
     <transition-group name="log" tag="ul" class="log-list">
       <li v-for="(logMessage, index) in logMessages" :key="index" :class="logMessage.actionBy">
         <span class="actor">
-          {{ logMessage.actionBy === 'pokemon' ? '🧝 Pokemon' : '🧟 Monster' }}
+          <img v-if="logMessage.characterImg" :src="logMessage.characterImg" :alt="logMessage.characterName"
+            class="actor-gif" />
+          {{ logMessage.characterName }}
         </span>
         <span v-if="logMessage.actionType === 'heal'" class="heal">
           heals for <strong>{{ logMessage.actionValue }}</strong>
@@ -84,5 +86,18 @@ const props = defineProps({
 .log-leave-to {
   opacity: 0;
   transform: translateY(-10px);
+}
+
+.actor {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.actor-gif {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  border-radius: 50%;
 }
 </style>
