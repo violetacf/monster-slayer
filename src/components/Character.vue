@@ -12,14 +12,14 @@ import PokemonGif from '../assets/Pokemon.gif'
 import MonsterGif from '../assets/Monster.gif'
 
 const props = defineProps({
-    type: { type: String, default: 'player' }, // 'player' o 'monster'
+    type: { type: String, default: 'pokemon' }, // 'pokemon' o 'monster'
     action: String, // 'attack', 'heal', etc.
 })
 
 const characterRef = ref(null)
 
 const characterImg = computed(() =>
-    props.type === 'player' ? PokemonGif : MonsterGif
+    props.type === 'pokemon' ? PokemonGif : MonsterGif
 )
 
 watch(() => props.action, (newAction) => {
@@ -29,7 +29,7 @@ watch(() => props.action, (newAction) => {
         gsap.fromTo(
             characterRef.value,
             { x: 0 },
-            { x: props.type === 'player' ? 20 : -20, duration: 0.1, yoyo: true, repeat: 3 }
+            { x: props.type === 'pokemon' ? 20 : -20, duration: 0.1, yoyo: true, repeat: 3 }
         )
     }
 

@@ -4,7 +4,7 @@
     <transition-group name="log" tag="ul" class="log-list">
       <li v-for="(logMessage, index) in logMessages" :key="index" :class="logMessage.actionBy">
         <span class="actor">
-          {{ logMessage.actionBy === 'player' ? '🧝 Player' : '🧟 Monster' }}
+          {{ logMessage.actionBy === 'pokemon' ? '🧝 Pokemon' : '🧟 Monster' }}
         </span>
         <span v-if="logMessage.actionType === 'heal'" class="heal">
           heals for <strong>{{ logMessage.actionValue }}</strong>
@@ -32,7 +32,7 @@ const props = defineProps({
   background-color: #2a2a2a;
   padding: 1rem;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 .log-container h2 {
@@ -59,7 +59,7 @@ const props = defineProps({
   font-weight: 500;
 }
 
-.player {
+.pokemon {
   background-color: rgba(77, 166, 255, 0.1);
 }
 
@@ -75,11 +75,13 @@ const props = defineProps({
   color: #ffb74d;
 }
 
-.log-enter-active, .log-leave-active {
+.log-enter-active,
+.log-leave-active {
   transition: all 0.4s ease;
 }
 
-.log-enter-from, .log-leave-to {
+.log-enter-from,
+.log-leave-to {
   opacity: 0;
   transform: translateY(-10px);
 }

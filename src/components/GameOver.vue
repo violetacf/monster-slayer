@@ -1,13 +1,13 @@
 <template>
   <section class="game-over" :class="winnerClass">
     <h2>Game Over!</h2>
-    <h3 v-if="winner === 'player'">You've won!!! 🎉</h3>
+    <h3 v-if="winner === 'pokemon'">You've won!!! 🎉</h3>
     <h3 v-else-if="winner === 'monster'">You've lost!!! 💀</h3>
     <h3 v-else>It's a draw!</h3>
     <button @click="$emit('restart')" class="btn-restart">Start New Game</button>
 
     <!-- Animaciones -->
-    <div v-if="winner === 'player'" class="fireworks-container">
+    <div v-if="winner === 'pokemon'" class="fireworks-container">
       <span v-for="n in 10" :key="n" class="firework"></span>
     </div>
     <div v-else-if="winner === 'monster'" class="blood-container">
@@ -24,7 +24,7 @@ const props = defineProps({
 })
 
 const winnerClass = computed(() => {
-  if (props.winner === 'player') return 'victory'
+  if (props.winner === 'pokemon') return 'victory'
   if (props.winner === 'monster') return 'defeat'
   return ''
 })
@@ -41,7 +41,7 @@ const winnerClass = computed(() => {
   color: white;
   font-family: 'Jost', sans-serif;
   font-weight: 700;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
   overflow: hidden;
 }
 
@@ -69,7 +69,7 @@ const winnerClass = computed(() => {
 
 .btn-restart:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 /* Fuegos artificiales */
@@ -93,9 +93,20 @@ const winnerClass = computed(() => {
 
 /* Animación random simple para fuego artificial */
 @keyframes fireworkAnim {
-  0% { transform: translate(0,0) scale(0); opacity: 1; }
-  50% { transform: translate(calc(-50px + 100px * var(--i)), calc(-50px + 100px * var(--i))) scale(1); opacity: 1; }
-  100% { transform: translate(calc(-100px + 200px * var(--i)), calc(-100px + 200px * var(--i))) scale(0); opacity: 0; }
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 1;
+  }
+
+  50% {
+    transform: translate(calc(-50px + 100px * var(--i)), calc(-50px + 100px * var(--i))) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(calc(-100px + 200px * var(--i)), calc(-100px + 200px * var(--i))) scale(0);
+    opacity: 0;
+  }
 }
 
 /* Sangre cayendo */
@@ -118,7 +129,14 @@ const winnerClass = computed(() => {
 }
 
 @keyframes bloodFall {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
 }
 </style>

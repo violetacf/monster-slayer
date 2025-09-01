@@ -5,20 +5,19 @@
 
   <main class="game-container">
 
-    <!-- Characters -->
     <div class="characters-container">
       <Character type="monster" :action="monsterAction" />
-      <Character type="player" :action="playerAction" />
+      <Character type="pokemon" :action="pokemonAction" />
     </div>
 
     <div class="healthbars-container">
       <HealthBar label="Monster Health" :healthValue="monsterBarStyles" />
-      <HealthBar label="Player Health" :healthValue="playerBarStyles" />
+      <HealthBar label="Pokemon Health" :healthValue="pokemonBarStyles" />
     </div>
 
     <div class="controls-container">
       <Controls :disabled="!!winner" :mayUseSpecialAttack="mayUseSpecialAttack" @attack="attackMonster"
-        @specialAttack="specialAttackMonster" @heal="healPlayer" @surrender="surrender" @restart="startGame" />
+        @specialAttack="specialAttackMonster" @heal="healPokemon" @surrender="surrender" @restart="startGame" />
     </div>
 
     <div class="battle-log-container">
@@ -35,42 +34,42 @@ import HealthBar from "./components/HealthBar.vue";
 import Controls from "./components/Controls.vue";
 import BattleLog from "./components/BattleLog.vue";
 import GameOver from "./components/GameOver.vue";
-import Character from "./components/Character.vue"; // <-- añadido
+import Character from "./components/Character.vue";
 
 function getRandomValue(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-const playerHealth = ref(100);
+const pokemonHealth = ref(100);
 const monsterHealth = ref(100);
 const currentRound = ref(0);
 const winner = ref(null);
 const logMessages = ref([]);
 
-const playerAction = ref(null)
+const pokemonAction = ref(null)
 const monsterAction = ref(null)
 
 const monsterBarStyles = computed(() => monsterHealth.value);
-const playerBarStyles = computed(() => playerHealth.value);
+const pokemonBarStyles = computed(() => pokemonHealth.value);
 const mayUseSpecialAttack = computed(() => currentRound.value % 3 !== 0);
 
-watch(playerHealth, (value) => {
+watch(pokemonHealth, (value) => {
   if (value <= 0 && monsterHealth.value <= 0) winner.value = "draw";
   else if (value <= 0) winner.value = "monster";
 });
 
 watch(monsterHealth, (value) => {
-  if (value <= 0 && playerHealth.value <= 0) winner.value = "draw";
-  else if (value <= 0) winner.value = "player";
+  if (value <= 0 && pokemonHealth.value <= 0) winner.value = "draw";
+  else if (value <= 0) winner.value = "pokemon";
 });
 
 function startGame() {
-  playerHealth.value = 100;
+  pokemonHealth.value = 100;
   monsterHealth.value = 100;
   winner.value = null;
   currentRound.value = 0;
   logMessages.value = [];
-  playerAction.value = null
+  pokemonAction.value = null
   monsterAction.value = null
 }
 
@@ -78,14 +77,14 @@ function attackMonster() {
   currentRound.value++;
   const attackValue = getRandomValue(5, 12);
   monsterHealth.value -= attackValue;
-  addLogMessage("player", "attack", attackValue);
-  playerAction.value = "attack"
-  attackPlayer();
+  addLogMessage("pokemon", "attack", attackValue);
+  pokemonAction.value = "attack"
+  attackPokemon();
 }
 
-function attackPlayer() {
+function attackPokemon() {
   const attackValue = getRandomValue(8, 15);
-  playerHealth.value -= attackValue;
+  pokemonHealth.value -= attackValue;
   addLogMessage("monster", "attack", attackValue);
   monsterAction.value = "attack"
 }
@@ -94,18 +93,18 @@ function specialAttackMonster() {
   currentRound.value++;
   const attackValue = getRandomValue(10, 25);
   monsterHealth.value -= attackValue;
-  addLogMessage("player", "special-attack", attackValue);
-  playerAction.value = "attack"
-  attackPlayer();
+  addLogMessage("pokemon", "special-attack", attackValue);
+  pokemonAction.value = "attack"
+  attackPokemon();
 }
 
-function healPlayer() {
+function healPokemon() {
   currentRound.value++;
   const healValue = getRandomValue(8, 20);
-  playerHealth.value = Math.min(playerHealth.value + healValue, 100);
-  addLogMessage("player", "heal", healValue);
-  playerAction.value = "heal"
-  attackPlayer();
+  pokemonHealth.value = Math.min(pokemonHealth.value + healValue, 100);
+  addLogMessage("pokemon", "heal", healValue);
+  pokemonAction.value = "heal"
+  attackPokemon();
 }
 
 function surrender() {

@@ -1,14 +1,14 @@
 # Monster Slayer - Vue 3 + Vite
 
 Monster Slayer is a simple turn-based game built with **Vue 3** using **Vite**.  
-The player fights a monster by attacking, using special attacks, healing, or surrendering. The game keeps a battle log and shows health bars for both player and monster.
+The pokemon fights a monster by attacking, using special attacks, healing, or surrendering. The game keeps a battle log and shows health bars for both pokemon and monster.
 
 👉 **Play it live here:** [Monster Slayer on Render](https://monster-slayer-1rdt.onrender.com)
 
 ## Features
 
 - Turn-based combat system
-- Player and monster health bars with animations
+- Pokemon and monster health bars with animations
 - Special attack every 3 rounds
 - Battle log tracking each action
 - Game over screen with win, lose, or draw
@@ -29,7 +29,7 @@ to see the game in your browser.
 
 ## File Structure
 
-- `src/components/HealthBar.vue` - Player/Monster health bars
+- `src/components/HealthBar.vue` - Pokemon/Monster health bars
 - `src/components/Controls.vue` - Action buttons
 - `src/components/BattleLog.vue` - Battle log list
 - `src/components/GameOver.vue` - Game over screen
